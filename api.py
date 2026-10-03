@@ -8,8 +8,8 @@ class ApiRequests:
     def get_list_ingredients():
         return requests.get(TestUrl.GET_INGREDIENTS)
 
-    def create_order(payload):
-        return requests.post(TestUrl.CREATE_ORDER, payload)
+    def create_order(payload, headers=None):
+        return requests.post(TestUrl.CREATE_ORDER, payload, headers=headers)
 
     def login(payload):    
         return requests.post(TestUrl.LOGIN, payload)
@@ -17,4 +17,6 @@ class ApiRequests:
     def register_user(payload):
         return requests.post(TestUrl.REGISTER_USER, payload)
 
+    def get_ingredients():
+        return requests.post(TestUrl.GET_INGREDIENTS)
 
