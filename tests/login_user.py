@@ -5,7 +5,7 @@ from helpers import Helpers
 
 class TestLogin:
 
-    def test_login_registered_user_returns_200_body_accessToken_refreshToken(self, register_user):
+    def test_login_registered_user_returns_200_body_accessToken_refreshToken(self, register_user_returns_body_with_all_reg_data):
         reg_data = register_user
 
         payload = {
@@ -26,7 +26,7 @@ class TestLogin:
         ("Логином и паролем (не существующий пользователь)", {"email": "testnotrightemail896@yandex.ru", "password": "testnotpassword896"}),
         ]
     )
-    def test_login_registered_user_with_not_right_data_returns_401_message(self, name_test, not_right_field, register_user):
+    def test_login_registered_user_with_not_right_data_returns_401_message(self, name_test, not_right_field, register_user_returns_body_with_all_reg_data):
         reg_data = register_user
 
         payload = {
