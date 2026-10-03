@@ -6,7 +6,7 @@ from helpers import Helpers
 
 class TestRegisterUser:
 
-    def test_register_new_unic_user_returns_201_body_accessToken_refreshToken(self):
+    def test_register_new_unic_user_returns_200_body_accessToken_refreshToken(self):
         payload = Helpers.generate_payload_registration()
 
         r = ApiRequests.register_user(payload)
@@ -35,7 +35,7 @@ class TestRegisterUser:
         ("Имени",{"name": ""})
         ]
     )
-    def test_register_new_user_without_required_field_returns_(self, name_test, missing_field):
+    def test_register_new_user_without_required_field_returns_403_message(self, name_test, missing_field):
         payload = Helpers.generate_payload_registration()
         
         payload.update(missing_field) 
