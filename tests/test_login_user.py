@@ -1,10 +1,16 @@
 import pytest
 import requests
+import allure
 from api import ApiRequests
 from helpers import Helpers
 
+
+@allure.suite("API Авторизация")
+@allure.sub_suite("Логин пользователя")
 class TestLogin:
 
+    @allure.title("Успешный логин зарегистрированного пользователя")
+    @allure.description("Проверка, что при вводе корректных данных возвращается статус 200 и токены авторизации")
     def test_login_registered_user_returns_200_body_accessToken_refreshToken(self, register_user_returns_body_with_all_reg_data):
         reg_data = register_user_returns_body_with_all_reg_data
 
@@ -18,6 +24,8 @@ class TestLogin:
         r_body = r.json()
         assert r.status_code == 200 and "accessToken" in r_body and "refreshToken" in r_body
 
+    @allure.title("Логин пользователя с некорректными данными")
+    @allure.description("Параметризованный тест с неверным "+" {name_test} "+" для проверки ошибки 401 при неверном логине, пароле или несуществующем юзере")
     @pytest.mark.parametrize(
         "name_test, not_right_field",
         [
