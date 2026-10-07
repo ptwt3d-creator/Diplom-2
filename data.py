@@ -10,6 +10,8 @@ class TestUrl:
     
     GET_INGREDIENTS = "https://stellarburgers.education-services.ru/api/ingredients"
 
+    DELETE_USER = "https://stellarburgers.education-services.ru/api/auth/user"
+
 class TestData:
 
     ORDER_PAYLOAD_ID_BUN_AND_MAIN = {"ingredients": ["61c0c5a71d1f82001bdaaa6d", "61c0c5a71d1f82001bdaaa6f"]}
