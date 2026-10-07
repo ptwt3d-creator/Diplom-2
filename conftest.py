@@ -36,11 +36,4 @@ def login_user_returns_login_body(register_user):
     login_data = r.json()
     return login_data
 
-@pytest.fixture
-def order_payload_id_bun_and_main():
-    return {"ingredients": ["61c0c5a71d1f82001bdaaa6d", "61c0c5a71d1f82001bdaaa6f"]}
-
-@pytest.fixture
-def order_payload_not_right_id_bun_and_main():
-    return {"ingredients": ["111115a71d1f82001bdaaa6d", "111115a71d1f82001bdaaa6f"]}
 
