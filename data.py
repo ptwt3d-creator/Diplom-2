@@ -14,4 +14,4 @@ class TestData:
 
     ORDER_PAYLOAD_ID_BUN_AND_MAIN = {"ingredients": ["61c0c5a71d1f82001bdaaa6d", "61c0c5a71d1f82001bdaaa6f"]}
     
-    ORDER_PAYLOAD_NOT_RIGHT_ID_BUN_AND_MAIN = {"ingredients": ["111115a71d1f82001bdaaa6d", "111115a71d1f82001bdaaa6f"]}
+    ORDER_PAYLOAD_NOT_RIGHT_ID_BUN_AND_MAIN = {"ingredients": ["4", "5"]}

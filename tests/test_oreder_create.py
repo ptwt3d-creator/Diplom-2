@@ -3,7 +3,7 @@ import requests
 import allure
 from api import ApiRequests
 from helpers import Helpers
-
+from data import TestData
 
 @allure.suite("API Заказы")
 @allure.sub_suite("Создание заказа")
@@ -12,9 +12,9 @@ class TestOrder:
 
     @allure.title("Создание заказа авторизованным пользователем с ингредиентами")
     @allure.description("Проверка, что при наличии токена и валидных ID ингредиентов возвращается статус 200 и номер заказа")
-    def test_order_with_auth_token_and_ingredients_returns_200_body(self, register_user_returns_headers_access_token, order_payload_id_bun_and_main):
+    def test_order_with_auth_token_and_ingredients_returns_200_body(self, register_user_returns_headers_access_token):
         accessToken = register_user_returns_headers_access_token
-        payload = order_payload_id_bun_and_main
+        payload = TestData.ORDER_PAYLOAD_ID_BUN_AND_MAIN
         
         r = ApiRequests.create_order(payload, accessToken)
 
@@ -24,8 +24,8 @@ class TestOrder:
 
     @allure.title("Создание заказа неавторизованным пользователем с ингредиентами")
     @allure.description("Проверка возможности создания заказа без передачи токена авторизации (ожидается код 200)")
-    def test_order_without_auth_token_with_ingredients_returns_200_body(self, order_payload_id_bun_and_main):
-        payload = order_payload_id_bun_and_main
+    def test_order_without_auth_token_with_ingredients_returns_200_body(self):
+        payload = TestData.ORDER_PAYLOAD_ID_BUN_AND_MAIN
         
         r = ApiRequests.create_order(payload)
 
@@ -36,9 +36,9 @@ class TestOrder:
 
     @allure.title("Создание заказа авторизованным пользователем без ингредиентов")
     @allure.description("Проверка, что при пустом списке ингредиентов возвращается ошибка 400 со специальным сообщением")
-    def test_order_with_auth_token_without_ingredients_returns_200_body(self, register_user_returns_headers_access_token, order_payload_id_bun_and_main):
+    def test_order_with_auth_token_without_ingredients_returns_200_body(self, register_user_returns_headers_access_token):
         accessToken = register_user_returns_headers_access_token
-        payload = order_payload_id_bun_and_main
+        payload = TestData.ORDER_PAYLOAD_ID_BUN_AND_MAIN
         
         payload["ingredients"] = []
         r = ApiRequests.create_order(payload, accessToken)
@@ -50,7 +50,7 @@ class TestOrder:
     @allure.description("Проверка, что при передаче несуществующих или некорректных хэшей ингредиентов возвращается серверная ошибка 500")
     def test_order_with_auth_token_with_not_right_id_ingredients_returns_500(self, register_user_returns_headers_access_token):
         accessToken = register_user_returns_headers_access_token
-        payload = {"ingredients": ["4", "5"]}
+        payload = TestData.ORDER_PAYLOAD_NOT_RIGHT_ID_BUN_AND_MAIN
 
         r = ApiRequests.create_order(payload, accessToken)
 
