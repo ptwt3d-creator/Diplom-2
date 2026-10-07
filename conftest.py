@@ -36,4 +36,13 @@ def login_user_returns_login_body(register_user):
     login_data = r.json()
     return login_data
 
+@pytest.fixture
+def cleanup_user_after_test():
+    tokens_to_clean = []
 
+    # Отдаем в тест лямбду, которая принимает список токенов в tokens_list и переносит его в tokens_to_clean с помощью extend
+    yield lambda tokens_list: tokens_to_clean.extend(tokens_list)
+
+    for token in tokens_to_clean:
+        if token != "":
+            ApiRequests.delete_user(token)
