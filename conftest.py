@@ -4,23 +4,33 @@ from helpers import Helpers
 from api import ApiRequests
 
 @pytest.fixture
-def register_user_returns_body_with_all_reg_data():
+def register_user_returns_body_with_all_reg_data_cleanup_yield():
     payload = Helpers.generate_payload_registration()
     
     r = ApiRequests.register_user(payload)
     reg_data = r.json()
 
-    #Добавили данные регистарции в корень тела ответа
+    # Забрали токен из ответ, для последующего удаления созданного пользователя
+    token = reg_data["accessToken"]
+
+    # Чтобы брать данные использованные при регистрации(логин, пароль, имя) в тестах при необходимости, добавили их в корень тела ответа
     reg_data.update(payload)
-    return reg_data
+    
+    yield reg_data
+    
+    ApiRequests.delete_user(token) # Удаление пользователя после теста
 
 @pytest.fixture
-def register_user_returns_headers_access_token():
+def register_user_returns_headers_access_token_cleanup_yield():
     payload = Helpers.generate_payload_registration()
     
     r = ApiRequests.register_user(payload)
+    token = r.json["accessToken"]
+    
+    yield {"accessToken": token}
 
-    return {"accessToken": r.json()["accessToken"]}
+    ApiRequests.delete_user(token) # Удаление пользователя после теста
+
 
 @pytest.fixture
 def login_user_returns_login_body(register_user):
