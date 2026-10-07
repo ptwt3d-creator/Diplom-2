@@ -20,3 +20,6 @@ class ApiRequests:
     def get_ingredients():
         return requests.post(TestUrl.GET_INGREDIENTS)
 
+    def delete_user(token):
+        headers = {"Authorization": token}
+        return requests.post(TestUrl.DELETE_USER, headers=headers)
