@@ -25,7 +25,7 @@ def register_user_returns_headers_access_token_cleanup_yield():
     payload = Helpers.generate_payload_registration()
     
     r = ApiRequests.register_user(payload)
-    token = r.json["accessToken"]
+    token = r.json()["accessToken"]
     
     yield {"accessToken": token}
 
