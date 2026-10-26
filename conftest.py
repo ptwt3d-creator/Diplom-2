@@ -50,7 +50,7 @@ def login_user_returns_login_body(register_user):
 def cleanup_user_after_test():
     tokens_to_clean = []
 
-    # Отдаем в тест лямбду, которая принимает список токенов в tokens_list и переносит его в tokens_to_clean с помощью extend
+    # Отдаем в тест лямбду после yield, которая принимает список токенов в tokens_list и переносит его в tokens_to_clean с помощью extend
     yield lambda tokens_list: tokens_to_clean.extend(tokens_list)
 
     for token in tokens_to_clean:
